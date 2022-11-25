@@ -3,4 +3,15 @@
 
     <string name="supermarket_database">Supermarket Database</string>
 
+    <string-array name="database_tables">
+        <item>Employee</item>
+        <item>Shop</item>
+        <item>ShopProductLink</item>
+        <item>Product</item>
+    </string-array>
+
+    <string name="show">Show</string>
+    <string name="add">Add</string>
+    <string name="delete">Delete</string>
+
 </resources>
