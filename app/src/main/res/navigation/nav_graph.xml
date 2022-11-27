@@ -24,7 +24,11 @@
         android:id="@+id/addFragment"
         android:name="vsm.hse.practice3.AddFragment"
         android:label="fragment_add"
-        tools:layout="@layout/fragment_add" />
+        tools:layout="@layout/fragment_add" >
+        <argument
+            android:name="tableName"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/showFragment"
         android:name="vsm.hse.practice3.ShowFragment"

@@ -13,5 +13,6 @@
     <string name="show">Show</string>
     <string name="add">Add</string>
     <string name="delete">Delete</string>
+    <string name="id">id</string>
 
 </resources>
