@@ -10,7 +10,7 @@ import androidx.room.RoomDatabase
         Employee::class,
         Shop::class,
         ShopProductLink::class,
-        Product::class],
+        Product::class ],
     version = 1
 )
 abstract class SupermarketDatabase: RoomDatabase() {

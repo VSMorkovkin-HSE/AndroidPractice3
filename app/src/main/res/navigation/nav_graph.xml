@@ -29,7 +29,11 @@
         android:id="@+id/showFragment"
         android:name="vsm.hse.practice3.ShowFragment"
         android:label="fragment_show"
-        tools:layout="@layout/fragment_show" />
+        tools:layout="@layout/fragment_show" >
+        <argument
+            android:name="tableName"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/deleteFragment"
         android:name="vsm.hse.practice3.DeleteFragment"

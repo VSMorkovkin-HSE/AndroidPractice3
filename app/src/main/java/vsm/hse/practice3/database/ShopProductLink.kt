@@ -17,7 +17,8 @@ import androidx.room.ForeignKey
             childColumns = arrayOf("product_id"),
             parentColumns = arrayOf("product_id")
         )
-    )
+    ),
+    tableName = "shopProductLink"
 )
 data class ShopProductLink (
     // primary keys

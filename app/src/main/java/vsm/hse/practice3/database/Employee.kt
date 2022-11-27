@@ -6,12 +6,15 @@ import androidx.room.ForeignKey
 
 import androidx.room.PrimaryKey
 
-@Entity(foreignKeys = arrayOf(ForeignKey(
-    entity = Shop::class,
-    parentColumns = arrayOf(""),
-    childColumns = arrayOf("")
-)))
-data class Employee(
+@Entity(
+    foreignKeys = arrayOf(ForeignKey(
+        entity = Shop::class,
+        parentColumns = arrayOf("shop_id"),
+        childColumns = arrayOf("shop_id")
+    )),
+    tableName = "employee"
+)
+data class Employee (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "employee_id")
     val employeeId: Int, // primary key
