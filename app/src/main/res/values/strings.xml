@@ -15,4 +15,14 @@
     <string name="delete">Delete</string>
     <string name="id">id</string>
 
+
+    <string name="id_with_colon">Id:</string>
+    <string name="name">Name:</string>
+    <string name="surname">Surname:</string>
+    <string name="patronymic">Patronymic:</string>
+    <string name="position">Position:</string>
+    <string name="salary">Salary:</string>
+    <string name="shop_id">Shop id:</string>
+
+
 </resources>
