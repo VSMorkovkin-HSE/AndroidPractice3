@@ -6,11 +6,13 @@
     tools:context=".ShowFragment">
 
     <TableLayout
+        android:id="@+id/table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:stretchColumns="1">
 
         <TableRow
+            android:id="@+id/column_names"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

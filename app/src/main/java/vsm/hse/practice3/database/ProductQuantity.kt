@@ -26,5 +26,5 @@ data class ProductQuantity (
     @ColumnInfo(name = "product_id") val productId : Int,
 
     @ColumnInfo val quantity : Int,
-    @ColumnInfo(name = "cost_of_all") val costOfAll : Double
+    // @ColumnInfo(name = "cost_of_all") val costOfAll : Double
 )
