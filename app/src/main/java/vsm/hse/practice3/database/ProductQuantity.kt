@@ -18,9 +18,9 @@ import androidx.room.ForeignKey
             parentColumns = arrayOf("product_id")
         )
     ),
-    tableName = "shopProductLink"
+    tableName = "productQuantity"
 )
-data class ShopProductLink (
+data class ProductQuantity (
     // primary keys
     @ColumnInfo(name = "shop_id") val shopId : Int,
     @ColumnInfo(name = "product_id") val productId : Int,

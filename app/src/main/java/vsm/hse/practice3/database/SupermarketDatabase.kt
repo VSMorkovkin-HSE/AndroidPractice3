@@ -9,14 +9,14 @@ import androidx.room.RoomDatabase
     entities = [
         Employee::class,
         Shop::class,
-        ShopProductLink::class,
+        ProductQuantity::class,
         Product::class ],
     version = 1
 )
 abstract class SupermarketDatabase: RoomDatabase() {
     abstract fun employeeDao(): EmployeeDao
     abstract fun shopDao(): ShopDao
-    abstract fun shopProductLinkDao(): ShopProductLinkDao
+    abstract fun productQuantityDao() : ProductQuantityDao
     abstract fun productDao(): ProductDao
 
     companion object {

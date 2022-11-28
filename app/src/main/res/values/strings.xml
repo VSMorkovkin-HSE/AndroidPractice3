@@ -6,7 +6,7 @@
     <string-array name="database_tables">
         <item>Employee</item>
         <item>Shop</item>
-        <item>ShopProductLink</item>
+        <item>ProductQuantity</item>
         <item>Product</item>
     </string-array>
 
@@ -23,6 +23,21 @@
     <string name="position">Position:</string>
     <string name="salary">Salary:</string>
     <string name="shop_id">Shop id:</string>
+
+    <string name="region">Region:</string>
+    <string name="city">City:</string>
+    <string name="address">Address:</string>
+
+    <string name="product_id">Product id:</string>
+    <string name="product_name">Product name:</string>
+    <string name="category">Category:</string>
+    <string name="price">Price:</string>
+    <string name="manufacturer_country">Manufacturer country:</string>
+
+
+    <string name="quantity">Quantity:</string>
+    <string name="price_all">Price all:</string>
+
 
 
 </resources>

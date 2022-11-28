@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import database.Shop
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -20,7 +21,6 @@ class AddFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val tableName = AddFragmentArgs.fromBundle(requireArguments()).tableName
-
 
         when(tableName) {
             "Employee" -> {
@@ -47,16 +47,7 @@ class AddFragment : Fragment() {
                     if (name.isEmpty() || surname.isEmpty() || patronymic.isEmpty() || position.isEmpty() || shopIdString.isEmpty()) {
                         Toast.makeText(view.context, "Введите недостающие значения", Toast.LENGTH_SHORT ).show()
                     } else {
-                        var message = ""
-                        message += "$id "
-                        message += "$name "
-                        message += "$surname "
-                        message += "$patronymic "
-                        message += "$position "
-                        message += "$salary "
-                        message += shopId
-
-
+                        val message = "$id $name $surname $patronymic $position $salary $shopId"
                         Toast.makeText(view.context, message, Toast.LENGTH_SHORT ).show()
 
                         /*GlobalScope.launch(Dispatchers.IO){
@@ -67,17 +58,85 @@ class AddFragment : Fragment() {
 
                 return view
             }
+            "Shop" -> {
+                val view = inflater.inflate(R.layout.fragment_add_shop, container, false)
+
+                val addShop = view.findViewById<Button>(R.id.add_shop)
+                addShop.setOnClickListener {
+                    val shopIdString = view.findViewById<EditText>(R.id.edittext_shop_id).text.toString()
+                    val shopId = if (shopIdString.isEmpty()) 0 else shopIdString.toInt()
+
+                    val region = view.findViewById<EditText>(R.id.edittext_shop_region).text.toString()
+                    val city = view.findViewById<EditText>(R.id.edittext_shop_city).text.toString()
+                    val address = view.findViewById<EditText>(R.id.edittext_shop_address).text.toString()
+
+                    if (region.isEmpty() || city.isEmpty() || address.isEmpty()) {
+                        Toast.makeText(view.context, "Введите недостающие значения", Toast.LENGTH_SHORT ).show()
+                    } else {
+                        val message = "$shopId $region $city $address"
+                        Toast.makeText(view.context, message, Toast.LENGTH_SHORT ).show()
+
+                        /*GlobalScope.launch(Dispatchers.IO){
+
+                        }*/
+                    }
+                }
+
+                return view
+            }
+            "Product" -> {
+                val view = inflater.inflate(R.layout.fragment_add_product, container, false)
+
+                val addProduct = view.findViewById<Button>(R.id.add_product)
+                addProduct.setOnClickListener {
+                    val productIdString = view.findViewById<EditText>(R.id.edittext_product_id).text.toString()
+                    val productId = if (productIdString.isEmpty()) 0 else productIdString.toInt()
+
+                    val productName = view.findViewById<EditText>(R.id.edittext_product_name).text.toString()
+                    val category = view.findViewById<EditText>(R.id.edittext_product_category).text.toString()
+
+                    val priceString = view.findViewById<EditText>(R.id.edittext_product_price).text.toString()
+
+                    val manufacturerCountry = view.findViewById<EditText>(R.id.edittext_product_manufacturer_country).text.toString()
+
+                    if (productName.isEmpty() || category.isEmpty() || priceString.isEmpty() || manufacturerCountry.isEmpty()) {
+                        Toast.makeText(view.context, "Введите недостающие значения", Toast.LENGTH_SHORT ).show()
+                    } else {
+                        val price = priceString.toInt()
+                        val message = "$productId $productName $category $price $manufacturerCountry"
+                        Toast.makeText(view.context, message, Toast.LENGTH_SHORT ).show()
+
+                        /*GlobalScope.launch(Dispatchers.IO){
+
+                        }*/
+                    }
+
+                }
+
+                return view
+            }
         }
 
+        val view = inflater.inflate(R.layout.fragment_add_product_quantity, container, false)
 
-//        val view = when(tableName) {
-//            "Employee" -> inflater.inflate(R.layout.fragment_add, container, false)
-//            "Shop" -> inflater.inflate(R.layout.fragment_add, container, false)
-//            "ProductQuantity" -> inflater.inflate(R.layout.fragment_add, container, false)
-//            "Product" -> inflater.inflate(R.layout.fragment_add, container, false)
-//            else -> throw Exception("Invalid table name")
-//        }
+        val addProductQuantity = view.findViewById<Button>(R.id.add_product_quantity)
+        addProductQuantity.setOnClickListener {
+            val shopIdString = view.findViewById<EditText>(R.id.edittext_product_quantity_shop_id).text.toString()
+            val productIdString = view.findViewById<EditText>(R.id.edittext_product_quantity_product_id).text.toString()
+            val quantityString = view.findViewById<EditText>(R.id.edittext_product_quantity).text.toString()
 
-        return inflater.inflate(R.layout.fragment_add, container, false)
+            if (shopIdString.isEmpty() || productIdString.isEmpty() || quantityString.isEmpty()) {
+                Toast.makeText(view.context, "Введите недостающие значения", Toast.LENGTH_SHORT ).show()
+            } else {
+                val shopId = shopIdString.toInt()
+                val productId = productIdString.toInt()
+                val quantity = quantityString.toInt()
+
+                val message = "$shopId $productId $quantity"
+                Toast.makeText(view.context, message, Toast.LENGTH_SHORT ).show()
+            }
+        }
+
+        return view
     }
 }
