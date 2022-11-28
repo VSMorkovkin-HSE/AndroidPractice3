@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import database.Shop
+import database.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -47,12 +47,18 @@ class AddFragment : Fragment() {
                     if (name.isEmpty() || surname.isEmpty() || patronymic.isEmpty() || position.isEmpty() || shopIdString.isEmpty()) {
                         Toast.makeText(view.context, "Введите недостающие значения", Toast.LENGTH_SHORT ).show()
                     } else {
-                        val message = "$id $name $surname $patronymic $position $salary $shopId"
-                        Toast.makeText(view.context, message, Toast.LENGTH_SHORT ).show()
+                        GlobalScope.launch(Dispatchers.IO){
+                            val database = SupermarketDatabase.getDatabase(view.context)
+                            val employeeDao = database.employeeDao()
+                            val employee = Employee(id, name, surname, patronymic, position, salary, shopId)
 
-                        /*GlobalScope.launch(Dispatchers.IO){
+                            employeeDao.insert(employee)
 
-                        }*/
+                            launch(Dispatchers.Main) {
+                                val message = "$id $name $surname $patronymic $position $salary $shopId"
+                                Toast.makeText(view.context, message, Toast.LENGTH_SHORT ).show()
+                            }
+                        }
                     }
                 }
 
@@ -73,12 +79,18 @@ class AddFragment : Fragment() {
                     if (region.isEmpty() || city.isEmpty() || address.isEmpty()) {
                         Toast.makeText(view.context, "Введите недостающие значения", Toast.LENGTH_SHORT ).show()
                     } else {
-                        val message = "$shopId $region $city $address"
-                        Toast.makeText(view.context, message, Toast.LENGTH_SHORT ).show()
+                        GlobalScope.launch(Dispatchers.IO){
+                            val database = SupermarketDatabase.getDatabase(view.context)
+                            val shopDao = database.shopDao()
+                            val shop = Shop(shopId, region, city, address)
 
-                        /*GlobalScope.launch(Dispatchers.IO){
+                            shopDao.insert(shop)
 
-                        }*/
+                            launch(Dispatchers.Main) {
+                                val message = "$shopId $region $city $address"
+                                Toast.makeText(view.context, message, Toast.LENGTH_SHORT ).show()
+                            }
+                        }
                     }
                 }
 
@@ -102,13 +114,20 @@ class AddFragment : Fragment() {
                     if (productName.isEmpty() || category.isEmpty() || priceString.isEmpty() || manufacturerCountry.isEmpty()) {
                         Toast.makeText(view.context, "Введите недостающие значения", Toast.LENGTH_SHORT ).show()
                     } else {
-                        val price = priceString.toInt()
-                        val message = "$productId $productName $category $price $manufacturerCountry"
-                        Toast.makeText(view.context, message, Toast.LENGTH_SHORT ).show()
+                        val price = priceString.toDouble()
 
-                        /*GlobalScope.launch(Dispatchers.IO){
+                        GlobalScope.launch(Dispatchers.IO){
+                            val database = SupermarketDatabase.getDatabase(view.context)
+                            val productDao = database.productDao()
+                            val product = Product(productId, productName, category, price, manufacturerCountry)
 
-                        }*/
+                            productDao.insert(product)
+
+                            launch(Dispatchers.Main) {
+                                val message = "$productId $productName $category $price $manufacturerCountry"
+                                Toast.makeText(view.context, message, Toast.LENGTH_SHORT ).show()
+                            }
+                        }
                     }
 
                 }
@@ -132,8 +151,18 @@ class AddFragment : Fragment() {
                 val productId = productIdString.toInt()
                 val quantity = quantityString.toInt()
 
-                val message = "$shopId $productId $quantity"
-                Toast.makeText(view.context, message, Toast.LENGTH_SHORT ).show()
+                GlobalScope.launch(Dispatchers.IO) {
+                    val database = SupermarketDatabase.getDatabase(view.context)
+                    val productQuantityDao = database.productQuantityDao()
+                    val productQuantity = ProductQuantity(shopId, productId, quantity)
+
+                    productQuantityDao.insert(productQuantity)
+
+                    launch(Dispatchers.Main) {
+                        val message = "$shopId $productId $quantity"
+                        Toast.makeText(view.context, message, Toast.LENGTH_SHORT ).show()
+                    }
+                }
             }
         }
 
