@@ -37,9 +37,13 @@ class MainFragment : Fragment() {
 
         val deleteButton = view.findViewById<Button>(R.id.delete)
         deleteButton.setOnClickListener {
-            view.findNavController().navigate(R.id.action_mainFragment_to_deleteFragment)
+            val tableName = spinner.selectedItem.toString()
+            val action = MainFragmentDirections.actionMainFragmentToAddFragment(tableName)
+            view.findNavController().navigate(action)
+            //view.findNavController().navigate(R.id.action_mainFragment_to_deleteFragment)
         }
 
         return view
     }
+
 }

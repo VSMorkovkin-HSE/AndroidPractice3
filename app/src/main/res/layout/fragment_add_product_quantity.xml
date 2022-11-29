@@ -17,7 +17,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/delete_product_quantity"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline8" />
 
@@ -97,5 +98,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/guideline14"
         app:layout_constraintTop_toBottomOf="@+id/edittext_product_quantity_product_id" />
+
+    <Button
+        android:id="@+id/delete_product_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/add_product_quantity"
+        app:layout_constraintTop_toTopOf="@+id/guideline8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
