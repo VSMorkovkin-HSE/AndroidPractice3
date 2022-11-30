@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_mainFragment_to_deleteFragment"
             app:destination="@id/deleteFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_showShopsWithProductsFragment"
+            app:destination="@id/showShopsWithProductsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addFragment"
@@ -43,4 +46,9 @@
         android:name="vsm.hse.practice3.DeleteFragment"
         android:label="fragment_delete"
         tools:layout="@layout/fragment_delete" />
+    <fragment
+        android:id="@+id/showShopsWithProductsFragment"
+        android:name="vsm.hse.practice3.database.ShowShopsWithProductsFragment"
+        android:label="fragment_show_shops_with_products"
+        tools:layout="@layout/fragment_show_shops_with_products" />
 </navigation>

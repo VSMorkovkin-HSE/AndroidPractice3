@@ -34,10 +34,9 @@
     <string name="price">Price:</string>
     <string name="manufacturer_country">Manufacturer country:</string>
 
-
     <string name="quantity">Quantity:</string>
     <string name="price_all">Price all:</string>
 
-
+    <string name="show_shops_with_products">Show shops with products</string>
 
 </resources>

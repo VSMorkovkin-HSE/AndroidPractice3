@@ -15,4 +15,9 @@ interface ShopDao {
 
     @Delete
     fun delete(shop: Shop)
+
+    @Query("SELECT * FROM shop AS s " +
+            "INNER JOIN productQuantity AS pq " +
+            "on s.shop_id = pq.shop_id")
+    fun getShopsWithProducts(): Map<Shop, ProductQuantity>
 }

@@ -43,6 +43,11 @@ class MainFragment : Fragment() {
             //view.findNavController().navigate(R.id.action_mainFragment_to_deleteFragment)
         }
 
+        val showShopsWithProducts = view.findViewById<Button>(R.id.show_shops_with_products)
+        showShopsWithProducts.setOnClickListener {
+            view.findNavController().navigate(R.id.action_mainFragment_to_showShopsWithProductsFragment)
+        }
+
         return view
     }
 
