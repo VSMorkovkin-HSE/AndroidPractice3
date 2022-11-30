@@ -1,4 +1,4 @@
-package vsm.hse.practice3.database
+package vsm.hse.practice3
 
 import android.content.Context
 import android.os.Bundle
