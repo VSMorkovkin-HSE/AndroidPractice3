@@ -39,4 +39,7 @@
 
     <string name="show_shops_with_products">Show shops with products</string>
 
+    <string name="enter_category">Enter category:</string>
+    <string name="show_products_by_entered_category">Show products by entered category</string>
+
 </resources>

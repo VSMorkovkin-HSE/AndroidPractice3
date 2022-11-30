@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Spinner
 import androidx.navigation.findNavController
 
@@ -46,6 +47,14 @@ class MainFragment : Fragment() {
         val showShopsWithProducts = view.findViewById<Button>(R.id.show_shops_with_products)
         showShopsWithProducts.setOnClickListener {
             view.findNavController().navigate(R.id.action_mainFragment_to_showShopsWithProductsFragment)
+        }
+
+        val showProductsByEnteredCategory = view.findViewById<Button>(R.id.show_products_by_entered_category)
+        showProductsByEnteredCategory.setOnClickListener {
+            val enterCategory = view.findViewById<EditText>(R.id.enter_category)
+            val enteredCategory = enterCategory.text.toString()
+            val action = MainFragmentDirections.actionMainFragmentToShowProductsByEnteredCategoryFragement(enteredCategory)
+            view.findNavController().navigate(action)
         }
 
         return view

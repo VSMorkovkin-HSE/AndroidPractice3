@@ -15,4 +15,7 @@ interface ProductDao {
 
     @Delete
     fun delete(product: Product)
+
+    @Query("SELECT * FROM product WHERE category = :category")
+    fun getAllByCategory(category: String) : List<Product>
 }

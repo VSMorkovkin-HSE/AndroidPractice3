@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_mainFragment_to_showShopsWithProductsFragment"
             app:destination="@id/showShopsWithProductsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_showProductsByEnteredCategoryFragement"
+            app:destination="@id/showProductsByEnteredCategoryFragement" />
     </fragment>
     <fragment
         android:id="@+id/addFragment"
@@ -51,4 +54,13 @@
         android:name="vsm.hse.practice3.ShowShopsWithProductsFragment"
         android:label="fragment_show_shops_with_products"
         tools:layout="@layout/fragment_show_shops_with_products" />
+    <fragment
+        android:id="@+id/showProductsByEnteredCategoryFragement"
+        android:name="vsm.hse.practice3.ShowProductsByEnteredCategoryFragement"
+        android:label="fragment_show_products_by_entered_category_fragement"
+        tools:layout="@layout/fragment_show_products_by_entered_category_fragement" >
+        <argument
+            android:name="category"
+            app:argType="string" />
+    </fragment>
 </navigation>
