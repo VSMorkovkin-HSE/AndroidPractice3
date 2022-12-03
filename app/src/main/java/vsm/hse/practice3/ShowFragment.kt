@@ -28,113 +28,98 @@ class ShowFragment : Fragment() {
         val tableName = ShowFragmentArgs.fromBundle(requireArguments()).tableName
         Toast.makeText(view.context, tableName, Toast.LENGTH_SHORT).show()
 
-        val idTextView = view.findViewById<TextView>(R.id.id)
-        val params = idTextView.layoutParams
         val table = view.findViewById<TableLayout>(R.id.table)
 
-        when(tableName) {
-            "Employee" -> {
-                val columnNames = arrayOf("id", "name", "surname", "patronymic", "position", "salary", "shop id")
-                addColumnNamesToTable(table, columnNames, view)
 
-                GlobalScope.launch(Dispatchers.IO) {
-                    val database = SupermarketDatabase.getDatabase(view.context)
+        GlobalScope.launch(Dispatchers.IO) {
+            val database = SupermarketDatabase.getDatabase(view.context)
+            val tableValues : MutableList<Array<String>> = mutableListOf()
+            lateinit var columnNames : Array<String>
+
+            when (tableName) {
+                "Employee" -> {
                     val employeeDao = database.employeeDao()
                     val employees = employeeDao.getAll()
+                    columnNames = arrayOf("id", "name", "surname", "patronymic", "position", "salary", "shop id")
 
-                    launch(Dispatchers.Main) {
-                        for (employee in employees) {
-                            val tableRow = TableRow(view.context)
-                            val textViews = arrayOf(
-                                createTextView(view.context, params, employee.employeeId.toString()),
-                                createTextView(view.context, params, employee.name),
-                                createTextView(view.context, params, employee.surname),
-                                createTextView(view.context, params, employee.patronymic),
-                                createTextView(view.context, params, employee.employeePosition),
-                                createTextView(view.context, params, employee.salary.toString()),
-                                createTextView(view.context, params, employee.shopId.toString())
+                    for (employee in employees) {
+                        tableValues.add(
+                            arrayOf(
+                                employee.employeeId.toString(),
+                                employee.name,
+                                employee.surname,
+                                employee.patronymic,
+                                employee.employeePosition,
+                                employee.salary.toString(),
+                                employee.shopId.toString()
                             )
-                            addTextViewsToTableRow(tableRow, textViews)
-
-                            table.addView(tableRow)
-                        }
+                        )
                     }
                 }
-            }
-            "Shop" -> {
-                val columnNames = arrayOf("id", "region", "city", "address")
-                addColumnNamesToTable(table, columnNames, view)
-                
-                GlobalScope.launch(Dispatchers.IO) { 
-                    val database = SupermarketDatabase.getDatabase(view.context)
+                "Shop" -> {
                     val shopDao = database.shopDao()
                     val shops = shopDao.getAll()
+                    columnNames = arrayOf("id", "region", "city", "address")
                     
-                    launch(Dispatchers.Main) {
-                        for (shop in shops) {
-                            val tableRow = TableRow(view.context)
-                            val textViews = arrayOf(
-                                createTextView(view.context, params, shop.shopId.toString()),
-                                createTextView(view.context, params, shop.region),
-                                createTextView(view.context, params, shop.city),
-                                createTextView(view.context, params, shop.address),
-
+                    for (shop in shops) {
+                        tableValues.add(
+                            arrayOf(
+                                shop.shopId.toString(),
+                                shop.region,
+                                shop.city,
+                                shop.address
                             )
-                            addTextViewsToTableRow(tableRow, textViews)
-
-                            table.addView(tableRow)
-                        }
+                        )
                     }
                 }
-            }
-            "Product" -> {
-                val columnNames = arrayOf("id", "name", "category", "price", "manufacturer country")
-                addColumnNamesToTable(table, columnNames, view)
-                
-                GlobalScope.launch(Dispatchers.IO) {
-                    val database = SupermarketDatabase.getDatabase(view.context)
+                "Product" -> {
                     val productDao = database.productDao()
                     val products = productDao.getAll()
-                    
-                    launch(Dispatchers.Main) {
-                        for (product in products) {
-                            val tableRow = TableRow(view.context)
-                            val textViews = arrayOf(
-                                createTextView(view.context, params, product.productId.toString()),
-                                createTextView(view.context, params, product.productName),
-                                createTextView(view.context, params, product.category),
-                                createTextView(view.context, params, product.price.toString()),
-                                createTextView(view.context, params, product.manufacturerCountry)
-                            )
-                            addTextViewsToTableRow(tableRow, textViews)
+                    columnNames = arrayOf("id", "name", "category", "price", "manufacturer country")
 
-                            table.addView(tableRow)
-                        }    
+                    for (product in products) {
+                        tableValues.add(
+                            arrayOf(
+                                product.productId.toString(),
+                                product.productName,
+                                product.category,
+                                product.price.toString(),
+                                product.manufacturerCountry
+                            )
+                        )
+                    }
+                }
+                else -> {
+                    val productQuantityDao = database.productQuantityDao()
+                    val productQuantities = productQuantityDao.getAll()
+                    columnNames = arrayOf("shopId", "productId", "quantity")
+
+                    for (productQuantity in productQuantities) {
+                        tableValues.add(
+                            arrayOf(
+                                productQuantity.shopId.toString(),
+                                productQuantity.productId.toString(),
+                                productQuantity.quantity.toString()
+                            )
+                        )
                     }
                 }
             }
-            "ProductQuantity" -> {
-                val columnNames = arrayOf("shopId", "productId", "quantity")
-                addColumnNamesToTable(table, columnNames, view)
-                
-                GlobalScope.launch(Dispatchers.IO) {
-                    val database = SupermarketDatabase.getDatabase(view.context)
-                    val productQuantityDao = database.productQuantityDao()
-                    val productQuantities = productQuantityDao.getAll()
-                    
-                    launch(Dispatchers.Main) {
-                        for (productQuantity in productQuantities) {
-                            val tableRow = TableRow(view.context)
-                            val textViews = arrayOf(
-                                createTextView(view.context, params, productQuantity.shopId.toString()),
-                                createTextView(view.context, params, productQuantity.productId.toString()),
-                                createTextView(view.context, params, productQuantity.quantity.toString()),
-                            )
-                            addTextViewsToTableRow(tableRow, textViews)
 
-                            table.addView(tableRow)
-                        }
+            launch(Dispatchers.Main) {
+                // add column names to table
+                val columnNamesRow = view.findViewById<TableRow>(R.id.column_names)
+                for (columnName in columnNames) {
+                    columnNamesRow.addView(createTextView(view.context, columnName))
+                }
+
+                // add values to table
+                for (row in tableValues) {
+                    val tableRow = TableRow(view.context)
+                    for (item in row) {
+                        tableRow.addView(createTextView(view.context, item))
                     }
+                    table.addView(tableRow)
                 }
             }
         }
@@ -142,31 +127,12 @@ class ShowFragment : Fragment() {
         return view
     }
 
-    private fun createTextView(context: Context, params: ViewGroup.LayoutParams, text: String): TextView {
+    private fun createTextView(context: Context, text: String): TextView {
         val textView = TextView(context)
-        textView.layoutParams = params
+        textView.layoutParams = TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f)
         textView.text = text
         textView.gravity = Gravity.CENTER
         return textView
-    }
-
-    private fun addTextViewsToTableRow(tableRow: TableRow, textViews: Array<TextView>) {
-        for (textView in textViews) {
-            tableRow.addView(textView)
-        }
-    }
-
-    private fun addColumnNamesToTable(table: TableLayout, columnNames: Array<String>, view: View) {
-        val idTextView = view.findViewById<TextView>(R.id.id)
-        idTextView.text = columnNames[0]
-        val params = idTextView.layoutParams
-        val columnNamesRow = view.findViewById<TableRow>(R.id.column_names)
-
-        for (i in 1 until columnNames.size) {
-            val columnNameTextView = createTextView(view.context, params, columnNames[i])
-            columnNamesRow.addView(columnNameTextView)
-        }
-
     }
 
 }
